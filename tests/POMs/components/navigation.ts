@@ -1,4 +1,4 @@
-import type { Page } from "playwright";
+import type { Page } from "playwright/test";
 
 export class Navigation {
 	constructor(private readonly page: Page) {}
@@ -9,7 +9,7 @@ export class Navigation {
 			homeIcon: this.page.getByRole("link", { name: "Website for practice" }),
 			homeLink: this.page.getByRole("link", { name: "Home" }),
 			loggedAsInfo: this.page.getByText("Logged in as"),
-			logoutLink: this.page.getByRole("link", { name: "Signup / Login" }),
+			logoutLink: this.page.getByRole("link", { name: "Logout" }),
 			productsLink: this.page.getByRole("link", { name: "Products" }),
 			signupLoginLink: this.page.getByRole("link", { name: "Signup / Login" }),
 		};

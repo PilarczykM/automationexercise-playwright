@@ -6,7 +6,7 @@ export class AccountInformationPage {
 	get selectors() {
 		return {
 			accountCreatedHeading: this.page.getByText("ACCOUNT CREATED!"),
-			accountDeletedHeading: this.page.getByText("Account Deleted!"),
+			accountDeletedHeading: this.page.getByText("ACCOUNT DELETED!"),
 		};
 	}
 

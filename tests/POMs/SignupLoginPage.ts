@@ -1,4 +1,4 @@
-import type { Page } from "playwright";
+import type { Page } from "playwright/test";
 import type { Navigation } from "./components/navigation";
 
 export class SignUpLoginPage {
@@ -23,13 +23,13 @@ export class SignUpLoginPage {
 		};
 	}
 
-	goto = async () => {
+	async goto() {
 		await this.navigation.navigateTo("signupLoginLink");
-	};
+	}
 
-	registerNewUser = async (name: string, email: string) => {
+	async registerNewUser(name: string, email: string) {
 		await this.selectors.signupName.fill(name);
 		await this.selectors.signupEmail.fill(email);
 		await this.selectors.signupButton.click();
-	};
+	}
 }

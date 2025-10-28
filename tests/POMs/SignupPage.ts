@@ -6,6 +6,26 @@ export class SignupPage {
 	get selectors() {
 		return {
 			accountInformationHeading: this.page.getByText("Enter Account Information"),
+			address2Input: this.page.getByRole("textbox", { name: "Address 2" }),
+			addressInput: this.page.getByRole("textbox", { name: "Address *" }),
+			cityInput: this.page.getByRole("textbox", { name: "City" }),
+			companyInput: this.page.getByRole("textbox", { exact: true, name: "Company" }),
+			countryDropdown: this.page.getByLabel("Country *"),
+			createAccountButton: this.page.getByRole("button", { name: "Create Account" }),
+			daysDropdown: this.page.locator("#days"),
+			emailInput: this.page.getByRole("textbox", { exact: true, name: "Email *" }),
+			firstNameInput: this.page.getByRole("textbox", { name: "First name" }),
+			lastNameInput: this.page.getByRole("textbox", { name: "Last name" }),
+			mobileNumberInput: this.page.getByRole("textbox", { name: "Mobile Number" }),
+			monthsDropdown: this.page.locator("#months"),
+			nameInput: this.page.getByRole("textbox", { exact: true, name: "Name *" }),
+			newsletterCheckbox: this.page.getByRole("checkbox", { name: "Sign up for our newsletter!" }),
+			passwordInput: this.page.getByRole("textbox", { name: "Password *" }),
+			specialOffersCheckbox: this.page.getByRole("checkbox", { name: "Receive special offers from" }),
+			stateInput: this.page.getByRole("textbox", { name: "State" }),
+			titleRadioButton: (title: "Mr." | "Mrs.") => this.page.getByText(title),
+			yearsDropdown: this.page.locator("#years"),
+			zipcodeInput: this.page.locator("#zipcode"),
 		};
 	}
 
@@ -21,16 +41,16 @@ export class SignupPage {
 		zipcode: string;
 		mobileNumber: string;
 	}) {
-		await this.page.getByRole("textbox", { name: "First name" }).fill(userData.firstName);
-		await this.page.getByRole("textbox", { name: "Last name" }).fill(userData.lastName);
-		userData.company && (await this.page.getByRole("textbox", { exact: true, name: "Company" }).fill(userData.company));
-		await this.page.getByRole("textbox", { name: "Address *" }).fill(userData.address);
-		userData.address2 && (await this.page.getByRole("textbox", { name: "Address 2" }).fill(userData.address2));
-		await this.page.getByLabel("Country *").selectOption(userData.country);
-		await this.page.getByRole("textbox", { name: "State" }).fill(userData.state);
-		await this.page.getByRole("textbox", { name: "City" }).fill(userData.city);
-		await this.page.locator("#zipcode").fill(userData.zipcode);
-		await this.page.getByRole("textbox", { name: "Mobile Number" }).fill(userData.mobileNumber);
+		await this.selectors.firstNameInput.fill(userData.firstName);
+		await this.selectors.lastNameInput.fill(userData.lastName);
+		if (userData.company) await this.selectors.companyInput.fill(userData.company);
+		await this.selectors.addressInput.fill(userData.address);
+		if (userData.address2) await this.selectors.address2Input.fill(userData.address2);
+		await this.selectors.countryDropdown.selectOption(userData.country);
+		await this.selectors.stateInput.fill(userData.state);
+		await this.selectors.cityInput.fill(userData.city);
+		await this.selectors.zipcodeInput.fill(userData.zipcode);
+		await this.selectors.mobileNumberInput.fill(userData.mobileNumber);
 	}
 
 	async fillAccountInformation(userData: {
@@ -40,30 +60,30 @@ export class SignupPage {
 		password: string;
 		dateOfBirth?: { day: string; month: string; year: string };
 	}) {
-		await this.page.getByText(userData.title).click();
-		await this.page.getByRole("textbox", { exact: true, name: "Name *" }).fill(userData.name);
-		const email = this.page.getByRole("textbox", { exact: true, name: "Email *" });
+		await this.selectors.titleRadioButton(userData.title).click();
+		await this.selectors.nameInput.fill(userData.name);
+		const email = this.selectors.emailInput;
 
-		!(await email.isDisabled()) && (await email.fill(userData.email));
+		if (!(await email.isDisabled())) await email.fill(userData.email);
 
-		await this.page.getByRole("textbox", { name: "Password *" }).fill(userData.password);
+		await this.selectors.passwordInput.fill(userData.password);
 
 		if (userData.dateOfBirth) {
-			await this.page.locator("#days").selectOption(userData.dateOfBirth.day);
-			await this.page.locator("#months").selectOption(userData.dateOfBirth.month);
-			await this.page.locator("#years").selectOption(userData.dateOfBirth.year);
+			await this.selectors.daysDropdown.selectOption(userData.dateOfBirth.day);
+			await this.selectors.monthsDropdown.selectOption(userData.dateOfBirth.month);
+			await this.selectors.yearsDropdown.selectOption(userData.dateOfBirth.year);
 		}
 	}
 
 	async subscribeNewsletter() {
-		await this.page.getByRole("checkbox", { name: "Sign up for our newsletter!" }).check();
+		await this.selectors.newsletterCheckbox.check();
 	}
 
 	async subscribeSpecialOffers() {
-		await this.page.getByRole("checkbox", { name: "Receive special offers from" }).check();
+		await this.selectors.specialOffersCheckbox.check();
 	}
 
 	async createAccount() {
-		await this.page.getByRole("button", { name: "Create Account" }).click();
+		await this.selectors.createAccountButton.click();
 	}
 }
