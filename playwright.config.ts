@@ -2,7 +2,7 @@ import path from "node:path";
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
-const ENV = process.env.NODE_ENV || "example";
+const ENV = process.env.ENVIRONMENT || "example";
 const envFile = `.env/.env.${ENV}`;
 const envPath = path.resolve(__dirname, envFile);
 dotenv.config({ path: envPath });

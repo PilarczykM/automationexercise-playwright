@@ -1,10 +1,10 @@
-# template-playwright
+# automationexercise-playwright
 
-This project is a template for Playwright tests, providing a basic setup for end-to-end testing.
+This project is a automationexercise playwright tests.
 
 ## Table of Contents
 
-- [template-playwright](#template-playwright)
+- [automationexercise-playwright](#automationexercise-playwright)
 	- [Table of Contents](#table-of-contents)
 	- [Usage](#usage)
 	- [Scripts](#scripts)
@@ -17,6 +17,10 @@ To run the Playwright tests, you can use the following command:
 
 ```bash
 npx playwright test
+```
+or
+```
+make test
 ```
 
 This will launch the test runner and execute all the tests in the `tests` directory.

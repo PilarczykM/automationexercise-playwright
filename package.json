@@ -1,7 +1,7 @@
 {
 	"author": "MP",
 	"bugs": {
-		"url": "https://github.com/PilarczykM/template-playwright/issues"
+		"url": "https://github.com/PilarczykM/automationexercise-playwright/issues"
 	},
 	"description": "",
 	"devDependencies": {
@@ -10,13 +10,13 @@
 		"@types/node": "^24.9.1",
 		"dotenv": "^17.2.3"
 	},
-	"homepage": "https://github.com/PilarczykM/template-playwright#readme",
+	"homepage": "https://github.com/PilarczykM/automationexercise-playwright#readme",
 	"keywords": [],
 	"license": "ISC",
-	"name": "template-playwright",
+	"name": "automationexercise-playwright",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/PilarczykM/template-playwright.git"
+		"url": "git+https://github.com/PilarczykM/automationexercise-playwright.git"
 	},
 	"scripts": {
 		"check": "npx @biomejs/biome check --write",

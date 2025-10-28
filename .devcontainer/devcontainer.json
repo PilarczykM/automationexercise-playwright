@@ -13,5 +13,5 @@
 		}
 	},
 	"forwardPorts": [9323],
-	"name": "template-playwright"
+	"name": "automationexercise-playwright"
 }
