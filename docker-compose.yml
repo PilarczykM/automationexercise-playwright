@@ -1,0 +1,10 @@
+services:
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: template-playwright
+    ports:
+      - "9323:9323"
+    stdin_open: true
+    tty: true

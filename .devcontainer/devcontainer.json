@@ -1,0 +1,17 @@
+{
+	"build": {
+		"context": "..",
+		"dockerfile": "../Dockerfile"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": ["biomejs.biome", "ms-playwright.playwright", "streetsidesoftware.code-spell-checker"],
+			"settings": {
+				"editor.formatOnSave": true,
+				"terminal.integrated.defaultProfile.linux": "bash"
+			}
+		}
+	},
+	"forwardPorts": [9323],
+	"name": "template-playwright"
+}

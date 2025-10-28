@@ -1,0 +1,23 @@
+{
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit"
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+
+	// Tabs instead of spaces
+	"editor.insertSpaces": false,
+
+	// Optional: show whitespace clearly in editor
+	"editor.renderWhitespace": "boundary",
+
+	// Optional: match Biome's line width for rulers
+	"editor.rulers": [120],
+	"editor.tabSize": 2,
+
+	// Always use LF (even on Windows)
+	"files.eol": "\n",
+
+	// Disable Prettier or any other competing formatter
+	"prettier.enable": false
+}
