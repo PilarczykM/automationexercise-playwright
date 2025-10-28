@@ -1,5 +1,26 @@
 import type { Page } from "@playwright/test";
 
+export type AddressInformation = {
+	firstName: string;
+	lastName: string;
+	company?: string;
+	address: string;
+	address2?: string;
+	country: "India" | "Canada" | "United States" | "Australia" | "Israel" | "New Zealand" | "Singapore";
+	state: string;
+	city: string;
+	zipcode: string;
+	mobileNumber: string;
+};
+
+export type AccountInformation = {
+	title: "Mr." | "Mrs.";
+	name: string;
+	email: string;
+	password: string;
+	dateOfBirth?: { day: string; month: string; year: string };
+};
+
 export class SignupPage {
 	constructor(readonly page: Page) {}
 
@@ -29,18 +50,7 @@ export class SignupPage {
 		};
 	}
 
-	async fillAddressInformation(userData: {
-		firstName: string;
-		lastName: string;
-		company?: string;
-		address: string;
-		address2?: string;
-		country: "India" | "Canada" | "United States" | "Australia" | "Israel" | "New Zealand" | "Singapore";
-		state: string;
-		city: string;
-		zipcode: string;
-		mobileNumber: string;
-	}) {
+	async fillAddressInformation(userData: AddressInformation) {
 		await this.selectors.firstNameInput.fill(userData.firstName);
 		await this.selectors.lastNameInput.fill(userData.lastName);
 		if (userData.company) await this.selectors.companyInput.fill(userData.company);
@@ -53,13 +63,7 @@ export class SignupPage {
 		await this.selectors.mobileNumberInput.fill(userData.mobileNumber);
 	}
 
-	async fillAccountInformation(userData: {
-		title: "Mr." | "Mrs.";
-		name: string;
-		email: string;
-		password: string;
-		dateOfBirth?: { day: string; month: string; year: string };
-	}) {
+	async fillAccountInformation(userData: AccountInformation) {
 		await this.selectors.titleRadioButton(userData.title).click();
 		await this.selectors.nameInput.fill(userData.name);
 		const email = this.selectors.emailInput;

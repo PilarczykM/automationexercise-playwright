@@ -15,7 +15,7 @@ export class Navigation {
 		};
 	}
 
-	navigateTo = async (locator: keyof typeof this.selector) => {
+	async navigateTo(locator: keyof typeof this.selector) {
 		await this.selector[locator].click();
-	};
+	}
 }
