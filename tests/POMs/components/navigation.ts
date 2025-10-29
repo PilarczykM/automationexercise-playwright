@@ -3,7 +3,7 @@ import type { Page } from "playwright/test";
 export class Navigation {
 	constructor(private readonly page: Page) {}
 
-	get selector() {
+	private get selector() {
 		return {
 			deleteAccountLink: this.page.getByRole("link", { name: "Delete Account" }),
 			homeIcon: this.page.getByRole("link", { name: "Website for practice" }),
@@ -17,5 +17,12 @@ export class Navigation {
 
 	async navigateTo(locator: keyof typeof this.selector) {
 		await this.selector[locator].click();
+	}
+
+	async getLoggedAsInfo() {
+		if (await this.selector.loggedAsInfo.isVisible()) {
+			return this.selector.loggedAsInfo;
+		}
+		return null;
 	}
 }

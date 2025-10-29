@@ -5,7 +5,7 @@ const EMAIL = "marian@gmail.com";
 
 test("Register User", async ({ homePage, signupLoginPage, signupPage, accountInformationPage }) => {
 	await test.step("Verify that home page is visible successfully", async () => {
-		await expect(homePage.selectors.slider).toBeVisible();
+		await expect(homePage.sliderLocator).toBeVisible();
 	});
 	await test.step("Click on 'Signup / Login' button", async () => {
 		await homePage.navigation.navigateTo("signupLoginLink");
@@ -61,9 +61,13 @@ test("Register User", async ({ homePage, signupLoginPage, signupPage, accountInf
 	await test.step("Click 'Continue' button", async () => {
 		await accountInformationPage.continue();
 	});
-	await test.step("Verify that 'Logged in as username' is visible", async () => {
-		await expect(homePage.navigation.selector.loggedAsInfo).toBeVisible();
-		await expect(homePage.navigation.selector.loggedAsInfo).toContainText(USER);
+	await test.step(`Verify that 'Logged in as ${USER}' is visible`, async () => {
+		const isLogged = await homePage.navigation.getLoggedAsInfo();
+
+		if (isLogged == null) {
+			throw Error(`Logged in as ${USER}' is not visible`);
+		}
+		await expect(isLogged).toContainText(USER);
 	});
 	await test.step("Click 'Delete Account' button", async () => {
 		await homePage.navigation.navigateTo("deleteAccountLink");

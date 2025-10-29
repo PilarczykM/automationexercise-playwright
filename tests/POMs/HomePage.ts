@@ -7,9 +7,13 @@ export class HomePage {
 		readonly navigation: Navigation,
 	) {}
 
-	get selectors() {
+	private get selectors() {
 		return {
 			slider: this.page.locator("#slider"),
 		};
+	}
+
+	get sliderLocator() {
+		return this.selectors.slider;
 	}
 }
