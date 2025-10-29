@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 
-export type AddressInformation = {
+type AddressInformation = {
 	firstName: string;
 	lastName: string;
 	company?: string;
@@ -13,7 +13,7 @@ export type AddressInformation = {
 	mobileNumber: string;
 };
 
-export type AccountInformation = {
+type AccountInformation = {
 	title: "Mr." | "Mrs.";
 	name: string;
 	email: string;
@@ -54,44 +54,107 @@ export class SignupPage {
 		return this.selectors.accountInformationHeading;
 	}
 
-	async fillAddressInformation(userData: AddressInformation) {
-		await this.selectors.firstNameInput.fill(userData.firstName);
-		await this.selectors.lastNameInput.fill(userData.lastName);
-		if (userData.company) await this.selectors.companyInput.fill(userData.company);
-		await this.selectors.addressInput.fill(userData.address);
-		if (userData.address2) await this.selectors.address2Input.fill(userData.address2);
-		await this.selectors.countryDropdown.selectOption(userData.country);
-		await this.selectors.stateInput.fill(userData.state);
-		await this.selectors.cityInput.fill(userData.city);
-		await this.selectors.zipcodeInput.fill(userData.zipcode);
-		await this.selectors.mobileNumberInput.fill(userData.mobileNumber);
-	}
-
-	async fillAccountInformation(userData: AccountInformation) {
-		await this.selectors.titleRadioButton(userData.title).click();
-		await this.selectors.nameInput.fill(userData.name);
-		const email = this.selectors.emailInput;
-
-		if (!(await email.isDisabled())) await email.fill(userData.email);
-
-		await this.selectors.passwordInput.fill(userData.password);
-
-		if (userData.dateOfBirth) {
-			await this.selectors.daysDropdown.selectOption(userData.dateOfBirth.day);
-			await this.selectors.monthsDropdown.selectOption(userData.dateOfBirth.month);
-			await this.selectors.yearsDropdown.selectOption(userData.dateOfBirth.year);
+	async fillAccountInformation(accountInformation: AccountInformation) {
+		await this.selectTitle(accountInformation.title);
+		await this.fillName(accountInformation.name);
+		await this.fillEmail(accountInformation.email);
+		await this.fillPassword(accountInformation.password);
+		if (accountInformation.dateOfBirth) {
+			await this.selectDateOfBirth(accountInformation.dateOfBirth);
 		}
 	}
 
-	async subscribeNewsletter() {
+	async fillAddressInformation(addressInformation: AddressInformation) {
+		await this.fillFirstName(addressInformation.firstName);
+		await this.fillLastName(addressInformation.lastName);
+		if (addressInformation.company) {
+			await this.fillCompany(addressInformation.company);
+		}
+		await this.fillAddress(addressInformation.address);
+		if (addressInformation.address2) {
+			await this.fillAddress2(addressInformation.address2);
+		}
+		await this.selectCountry(addressInformation.country);
+		await this.fillState(addressInformation.state);
+		await this.fillCity(addressInformation.city);
+		await this.fillZipcode(addressInformation.zipcode);
+		await this.fillMobileNumber(addressInformation.mobileNumber);
+	}
+
+	async selectTitle(title: "Mr." | "Mrs.") {
+		await this.selectors.titleRadioButton(title).click();
+	}
+
+	async fillName(name: string) {
+		await this.selectors.nameInput.fill(name);
+	}
+
+	async fillEmail(email: string) {
+		const emailInput = this.selectors.emailInput;
+		if (!(await emailInput.isDisabled())) {
+			await emailInput.fill(email);
+		}
+	}
+
+	async fillPassword(password: string) {
+		await this.selectors.passwordInput.fill(password);
+	}
+
+	async selectDateOfBirth(dateOfBirth: { day: string; month: string; year: string }) {
+		await this.selectors.daysDropdown.selectOption(dateOfBirth.day);
+		await this.selectors.monthsDropdown.selectOption(dateOfBirth.month);
+		await this.selectors.yearsDropdown.selectOption(dateOfBirth.year);
+	}
+
+	async checkNewsletter() {
 		await this.selectors.newsletterCheckbox.check();
 	}
 
-	async subscribeSpecialOffers() {
+	async checkSpecialOffers() {
 		await this.selectors.specialOffersCheckbox.check();
 	}
 
-	async createAccount() {
+	async fillFirstName(firstName: string) {
+		await this.selectors.firstNameInput.fill(firstName);
+	}
+
+	async fillLastName(lastName: string) {
+		await this.selectors.lastNameInput.fill(lastName);
+	}
+
+	async fillCompany(company: string) {
+		await this.selectors.companyInput.fill(company);
+	}
+
+	async fillAddress(address: string) {
+		await this.selectors.addressInput.fill(address);
+	}
+
+	async fillAddress2(address2: string) {
+		await this.selectors.address2Input.fill(address2);
+	}
+
+	async selectCountry(country: AddressInformation["country"]) {
+		await this.selectors.countryDropdown.selectOption(country);
+	}
+
+	async fillState(state: string) {
+		await this.selectors.stateInput.fill(state);
+	}
+
+	async fillCity(city: string) {
+		await this.selectors.cityInput.fill(city);
+	}
+
+	async fillZipcode(zipcode: string) {
+		await this.selectors.zipcodeInput.fill(zipcode);
+	}
+
+	async fillMobileNumber(mobileNumber: string) {
+		await this.selectors.mobileNumberInput.fill(mobileNumber);
+	}
+
+	async clickCreateAccount() {
 		await this.selectors.createAccountButton.click();
 	}
 }

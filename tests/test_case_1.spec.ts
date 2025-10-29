@@ -33,10 +33,10 @@ test("Register User", async ({ homePage, signupLoginPage, signupPage, accountInf
 		});
 	});
 	await test.step("Select checkbox 'Sign up for our newsletter!'", async () => {
-		await signupPage.subscribeNewsletter();
+		await signupPage.checkNewsletter();
 	});
 	await test.step("Select checkbox 'Receive special offers from our partners!'", async () => {
-		await signupPage.subscribeSpecialOffers();
+		await signupPage.checkSpecialOffers();
 	});
 	await test.step("Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number", async () => {
 		await signupPage.fillAddressInformation({
@@ -53,7 +53,7 @@ test("Register User", async ({ homePage, signupLoginPage, signupPage, accountInf
 		});
 	});
 	await test.step("Click 'Create Account button'", async () => {
-		await signupPage.createAccount();
+		await signupPage.clickCreateAccount();
 	});
 	await test.step("Verify that 'ACCOUNT CREATED!' is visible", async () => {
 		await expect(accountInformationPage.selectors.accountCreatedHeading).toBeVisible();
