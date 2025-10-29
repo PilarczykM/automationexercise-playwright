@@ -19,7 +19,10 @@ export const test = base.extend<TestFixtures>({
 	},
 	homePage: async ({ page }, use) => {
 		await page.goto("/");
-		await page.getByRole("button", { name: "Consent" }).click();
+		const consentButton = page.getByRole("button", { name: "Consent" });
+		if (await consentButton.isVisible()) {
+			await consentButton.click();
+		}
 		const navigation = new Navigation(page);
 		const homePage = new HomePage(page, navigation);
 		await use(homePage);
