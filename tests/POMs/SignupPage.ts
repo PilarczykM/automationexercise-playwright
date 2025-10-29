@@ -1,19 +1,29 @@
 import type { Page } from "@playwright/test";
 
-type AddressInformation = {
+export const COUNTRIES = {
+	AUSTRALIA: "Australia",
+	CANADA: "Canada",
+	INDIA: "India",
+	ISRAEL: "Israel",
+	NEW_ZEALAND: "New Zealand",
+	SINGAPORE: "Singapore",
+	UNITED_STATES: "United States",
+} as const;
+
+export type AddressInformation = {
 	firstName: string;
 	lastName: string;
 	company?: string;
 	address: string;
 	address2?: string;
-	country: "India" | "Canada" | "United States" | "Australia" | "Israel" | "New Zealand" | "Singapore";
+	country: (typeof COUNTRIES)[keyof typeof COUNTRIES];
 	state: string;
 	city: string;
 	zipcode: string;
 	mobileNumber: string;
 };
 
-type AccountInformation = {
+export type AccountInformation = {
 	title: "Mr." | "Mrs.";
 	name: string;
 	email: string;
