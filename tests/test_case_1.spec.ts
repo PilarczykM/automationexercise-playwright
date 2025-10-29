@@ -17,7 +17,7 @@ test("Register User", async ({ homePage, signupLoginPage, signupPage, accountInf
 		await signupLoginPage.registerNewUser(USER, EMAIL);
 	});
 	await test.step("Verify that 'ENTER ACCOUNT INFORMATION' is visible", async () => {
-		await expect(signupPage.selectors.accountInformationHeading).toBeVisible();
+		await expect(signupPage.getAccountInformationHeading()).toBeVisible();
 	});
 	await test.step("Fill details: Title, Name, Email, Password, Date of birth", async () => {
 		await signupPage.fillAccountInformation({

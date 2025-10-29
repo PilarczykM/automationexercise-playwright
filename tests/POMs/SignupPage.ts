@@ -24,7 +24,7 @@ export type AccountInformation = {
 export class SignupPage {
 	constructor(readonly page: Page) {}
 
-	get selectors() {
+	private get selectors() {
 		return {
 			accountInformationHeading: this.page.getByText("Enter Account Information"),
 			address2Input: this.page.getByRole("textbox", { name: "Address 2" }),
@@ -48,6 +48,10 @@ export class SignupPage {
 			yearsDropdown: this.page.locator("#years"),
 			zipcodeInput: this.page.locator("#zipcode"),
 		};
+	}
+
+	getAccountInformationHeading() {
+		return this.selectors.accountInformationHeading;
 	}
 
 	async fillAddressInformation(userData: AddressInformation) {
