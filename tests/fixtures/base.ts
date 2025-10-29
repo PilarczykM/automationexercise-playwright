@@ -10,6 +10,7 @@ type TestFixtures = {
 	homePage: HomePage;
 	signupPage: SignupPage;
 	accountInformationPage: AccountInformationPage;
+	navigation: Navigation;
 };
 
 export const test = base.extend<TestFixtures>({
@@ -17,19 +18,23 @@ export const test = base.extend<TestFixtures>({
 		const accountInformationPage = new AccountInformationPage(page);
 		await use(accountInformationPage);
 	},
-	homePage: async ({ page }, use) => {
+
+	homePage: async ({ page, navigation }, use) => {
 		await page.goto("/");
 		const consentButton = page.getByRole("button", { name: "Consent" });
 		if (await consentButton.isVisible()) {
 			await consentButton.click();
 		}
-		const navigation = new Navigation(page);
 		const homePage = new HomePage(page, navigation);
 		await use(homePage);
 	},
 
-	signupLoginPage: async ({ page }, use) => {
+	navigation: async ({ page }, use) => {
 		const navigation = new Navigation(page);
+		await use(navigation);
+	},
+
+	signupLoginPage: async ({ page, navigation }, use) => {
 		const signupLoginPage = new SignUpLoginPage(page, navigation);
 		await use(signupLoginPage);
 	},
