@@ -1,34 +1,9 @@
-import { faker } from "@faker-js/faker";
+import { createUser } from "./factories/userFactory";
 import { expect, test } from "./fixtures/base";
 import type { AccountInformation } from "./POMs/SignupPage";
-import { COUNTRIES } from "./POMs/SignupPage";
 
 test("Register User", async ({ homePage, signupLoginPage, signupPage, accountInformationPage }) => {
-	const gender: "male" | "female" = faker.helpers.arrayElement(["male", "female"]);
-	const user_data = {
-		address: faker.location.streetAddress(),
-		address2: faker.location.secondaryAddress(),
-		city: faker.location.city(),
-		company: faker.company.name(),
-		country: faker.helpers.arrayElement(Object.values(COUNTRIES)),
-		dateOfBirth: faker.date.birthdate({ max: 65, min: 18, mode: "age" }),
-		email: "", // Will be set below using firstName and lastName
-		firstName: faker.person.firstName(gender),
-		lastName: faker.person.lastName(),
-		mobileNumber: faker.phone.number({ style: "international" }),
-		name: "",
-
-		password: faker.internet.password({ length: 12, memorable: false }),
-		state: faker.location.state({ abbreviated: true }),
-		title: gender === "male" ? "Mr." : "Mrs.",
-		zipcode: "",
-	};
-	user_data.name = `${user_data.firstName} ${user_data.lastName}`;
-	user_data.email = faker.internet.email({
-		firstName: user_data.firstName,
-		lastName: user_data.lastName,
-	});
-	user_data.zipcode = faker.location.zipCode(user_data.state);
+	const user_data = createUser();
 
 	await test.step("Verify that home page is visible successfully", async () => {
 		await expect(homePage.sliderLocator).toBeVisible();
